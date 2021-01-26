@@ -5,6 +5,8 @@
  * @license MIT
  **/
 
+ declare(strict_types=1);
+
 /**********************************/
 /* Use examples - input strings */
 /**********************************/
@@ -27,19 +29,19 @@ echo '<b>Returned to original text: </b>'.$plainText.'<br>';
 
 Class Shifty
 {
-	private static $standardAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 *-+#!="£$%&(),.\/\'?@[]{}';
-	private static $cipherAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!£"y7h.k($&+%qgv)9@x?f2,o/l0*\u5[6a=pw }]4-mt{z8ec3jdbsnri1#\'';
-	private static $key = '02356648799988775';
+	private static string $standardAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 *-+#!="£$%&(),.\/\'?@[]{}';
+	private static string $cipherAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!£"y7h.k($&+%qgv)9@x?f2,o/l0*\u5[6a=pw }]4-mt{z8ec3jdbsnri1#\'';
+	private static string $key = '02356648799988775';
 
 	/**
 	 * used to encypher a string later to be deciphered with the decipher function
 	 * @param [type] $input
 	 * @param [type] $output
-	 * @return void
+	 * @return bool
 	 * @example Shifty::encipher($text, $cipherText);
 
 	 */
-	public static function encipher($input, &$output)
+	public static function encipher($input, &$output) : bool
 	{
 		return self::cipher($input, self::$standardAlphabet, self::$cipherAlphabet, $output);
 	}
@@ -48,10 +50,10 @@ Class Shifty
 	 * used to decypher a string enciphered with the encipher() function
 	 * @param [string] $input
 	 * @param [string] $output
-	 * @return string
+	 * @return bool
 	 * @example Shifty::decipher($cipherText, $plainText);
 	 */
-	public static function decipher($input, &$output)
+	public static function decipher($input, &$output) : bool
 	{
 		return self::cipher($input, self::$cipherAlphabet, self::$standardAlphabet, $output);
 	}
@@ -64,9 +66,9 @@ Class Shifty
 	 * @param [static member] $standardAlphabet
 	 * @param [static member] $cipherAlphabet
 	 * @param [string] $output
-	 * @return string
+	 * @return bool
 	 */
-	private static function cipher($input, $standardAlphabet, $cipherAlphabet, &$output)
+	private static function cipher($input, $standardAlphabet, $cipherAlphabet, &$output) : bool
 	{
 		$output = "";
 		$inputLen = strlen($input);
@@ -95,7 +97,7 @@ Class Shifty
 	 * @return string
 	 * @example $plainText = Shifty::XORCipher($cipherText);
 	 */
-	public static function XORCipher($data)
+	public static function XORCipher($data) : string
 	{
 		$dataLen = strlen($data);
 		$keyLen = strlen(self::$key);
@@ -114,7 +116,7 @@ Class Shifty
 	 * @return string
 	 * @example $userDetail = Shifty::lockUserDetail($text, $cipherText);
 	 */
-	public static function lockUserDetail($text, $cipherText)
+	public static function lockUserDetail($text, $cipherText) : string
 	{
 		self::encipher($text, $cipherText);
 		$cipherText = self::XORCipher($cipherText);
@@ -129,7 +131,7 @@ Class Shifty
 	 * @return string
 	 * @example $plainText = Shifty::freeUserDetail($cipherText, $plainText);
 	 */
-	public static function freeUserDetail($cipherText, $plainText)
+	public static function freeUserDetail($cipherText, $plainText) : string
 	{
 		$cipherText = self::XORCipher($cipherText);
 		self::decipher($cipherText, $plainText);
