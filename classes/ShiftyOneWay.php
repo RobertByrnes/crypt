@@ -35,12 +35,17 @@ Class ShiftyOneWay
             $hashType = 'null';
         }
         switch ($hashType) {
-            case 'null':        $hashType = PASSWORD_DEFAULT;   break;
-            case 'argon2i':     $hashType = PASSWORD_ARGON2I;   break;
-            case 'bcrypt':      $hashType = PASSWORD_BCRYPT;    break;
-            case 'argon2id':    $hashType = PASSWORD_ARGON2ID;  break;
+            case 'null':        $hashType = PASSWORD_DEFAULT;           break;
+            case 'md5':         $md5 = md5($string);                    break;
+            case 'argon2i':     $md5 = $hashType = PASSWORD_ARGON2I;    break;
+            case 'bcrypt':      $hashType = PASSWORD_BCRYPT;            break;
+            case 'argon2id':    $hashType = PASSWORD_ARGON2ID;          break;
         }
-        return password_hash($string, $hashType);
+        if($hashType != 'md5') {
+            return password_hash($string, $hashType);
+        } else {
+            return $md5;
+        }
     }
 
     
@@ -61,11 +66,14 @@ Class ShiftyOneWay
         $cost = 8;
         do {
             $cost++;
-            $start = microtime(true);
-            echo "<b>Server benchmarch test iterations: </b>".password_hash("getmeoutofhere2021!", PASSWORD_BCRYPT, ["cost" => $cost]).'<Br>';
+            $mtime = microtime(); 
+            $mtime = explode(" ",$mtime);
+            $mtime = $mtime[1] + $mtime[0];
+            $starttime = $mtime;
+            echo "<b>Server benchmarch test iterations > 8*: </b>".password_hash("getmeoutofhere2021!", PASSWORD_BCRYPT, ["cost" => $cost]).'<Br>';
             $end = microtime(true);
         }
-        while (($end - $start) < $targetTime);
+        while (($end - $starttime) < $targetTime);
         echo "<b>Appropriate Cost Found: </b>" . $cost.'<Br>';
         return $cost;
     }

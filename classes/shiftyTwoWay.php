@@ -35,8 +35,8 @@ Class ShiftyTwoWay
 
 	/**
 	 * used to encypher a string later to be deciphered with the decipher function
-	 * @param [type] $input
-	 * @param [type] $output
+	 * @param string $input
+	 * @param string $output
 	 * @return bool
 	 * @example ShiftyTwoWay::encipher($text, $cipherText);
 	 */
@@ -48,8 +48,8 @@ Class ShiftyTwoWay
 
 	/**
 	 * used to decypher a string enciphered with the encipher() function
-	 * @param [string] $input
-	 * @param [string] $output
+	 * @param string $input
+	 * @param string $output
 	 * @return bool
 	 * @example ShiftyTwoWay::decipher($cipherText, $plainText);
 	 */
@@ -60,13 +60,13 @@ Class ShiftyTwoWay
 
 
 	/**
-	 * modifies a string but swapping out characters from the original alphabet string to 
+	 * modifies a string by swapping out characters from the original alphabet string to 
 	 * the substitue alphabet, reorders whitespaces. This function is called from within the 
 	 * class by either encipher() or decipher()
-	 * @param [string] $input
-	 * @param [static member] $standardAlphabet
-	 * @param [static member] $cipherAlphabet
-	 * @param [string] $output
+	 * @param string $input
+	 * @param string $standardAlphabet
+	 * @param string $cipherAlphabet
+	 * @param string $output
 	 * @return bool
 	 */
 	private static function cipher($input, $standardAlphabet, $cipherAlphabet, &$output) : bool
@@ -95,7 +95,7 @@ Class ShiftyTwoWay
 	/**
 	 * enciphers a string using bitwise xor operator, this function is also used to decipher a string
 	 * previously enciphered with this function
-	 * @param [string] $data to be encrypted or decrypted
+	 * @param string $data to be encrypted or decrypted
 	 * @return string
 	 * @example $plainText = ShiftyTwoWay::XORCipher($cipherText);
 	 */
@@ -114,8 +114,8 @@ Class ShiftyTwoWay
 
 	/**
 	 * uses a two step combination of encipher() and XORCipher() functions to encypher a string 
-	 * @param [string] $text
-	 * @param [empty string] $cipherText
+	 * @param string $text
+	 * @param string $cipherText
 	 * @return string
 	 * @example $userDetail = ShiftyTwoWay::lockUserDetail($text, $cipherText);
 	 */
@@ -129,8 +129,8 @@ Class ShiftyTwoWay
 	/**
 	 * uses a two step combination of XORCipher() and decipher() functions to decipher a string
 	 * previously enciphered with lockUserDetail()
-	 * @param [string] $cipherText = encrypted string
-	 * @param [empty string] $plainText = to modified to contain the output
+	 * @param string $cipherText = encrypted string
+	 * @param string $plainText = to modified to contain the output
 	 * @return string
 	 * @example $plainText = ShiftyTwoWay::freeUserDetail($cipherText, $plainText);
 	 */
