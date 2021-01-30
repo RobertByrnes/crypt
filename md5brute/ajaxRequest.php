@@ -7,6 +7,7 @@
 
 require('../classes/ShiftyTwoWay.php');
 
-if (isset($_POST['stringBruteText'])) {
-    echo 'success';
+if (isset($_POST['stringBrute'])) {
+    $hash = $_POST['stringBrute'];
+    $hashType = $_POST['hashType']; 
 }

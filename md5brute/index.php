@@ -124,6 +124,16 @@ include "../classes/ShiftyOneWay.php";
                                             <input type="text" id="stringBruteText" class="form-control text-box" placeholder="Paste or enter string to Brute Force Test" autocomplete="off" required/>
                                         </div>
                                         <div class="form-group d-flex justify-content-center">
+                                            <label for="hashType" class="selectType"><b style="color:white;">Select Type of Encrpytion:&nbsp;&nbsp;</b></label>
+                                            <select name="hashType" id="SB_hashType" required>
+                                                <option value="" selected>Select</option>
+                                                <option value="md5">unknown</option>
+                                                <option value="bcrypt">bcrypt</option>
+                                                <option value="argon2i">argon2i</option>
+                                                <option value="argon2id">argon2id</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group d-flex justify-content-center">
                                             <input type="submit" id="stringBrute" class="btnContactSubmit" value="Brute Go" />
                                         </div>
                                     </form>

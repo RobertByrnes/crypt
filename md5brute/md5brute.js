@@ -1,6 +1,3 @@
-
-
-
 $( document ).ready(function() {
     $('#hashGen-tab').show();
     $('#brute1-tab').hide();
@@ -42,9 +39,10 @@ $( document ).ready(function() {
     });
     $("#stringBrute").click(function(){
         var data = $('#stringBruteText').val();
-        $.ajax({url: "ajaxRequest.php", type: "POST", data: data,  success: function(result){
+        var hash = $('#SB_hashType').val();
+        $.ajax({url: "ajaxRequest.php", type: "POST", data: {stringBrute: data, hashType: hash},  success: function(result){
             alert(result);
-            $("#stringBrute").html(result);
+            // $("#stringBrute").html(result);
         }});
     });
 
