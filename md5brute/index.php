@@ -79,7 +79,7 @@ include "../classes/ShiftyOneWay.php";
                                         }
                                         ?>
                                     </div> 
-                                     <button class="copyButton" type="button">Copy Text</button>
+                                     <button class="copyButton btnContactSubmit" type="button">Copy Text</button>
                                 </div>
                             </div>
                         </div>
