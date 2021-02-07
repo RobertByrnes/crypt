@@ -5,13 +5,7 @@
  * @created 27/01/2021
  **/
 
-// Cracker::init(array(
-//     'timezone'    => 'Europe/Amsterdam', // Time zone for the output file.
-//     'wordlist'    => '../wordlist/wordlist.txt', // Path to the wordlist.
-//     'outputfile'  => '../logs/output.txt' // Output file where the matching combo('s) will be stored in.
-// ));
-
-Class Cracker
+Class LockPick
 {
     /**
      * string of characters used to test a hashed string against for md5 hashes.
@@ -58,6 +52,7 @@ Class Cracker
 		self::$settings = $settings;
     }
     
+
     /**
     * microtime() function returns the current timestamp. This function is used to start the timer for calculating
     * the time required to brute force the password.
@@ -76,6 +71,7 @@ Class Cracker
         return;
     }
 
+
     /**
      * define() function defines h_value constant with md5 hash of a password.
      * define() function defines $P_MAX_LEN constant with $p i.e. length of password entered,
@@ -90,10 +86,14 @@ Class Cracker
         self::startTimer();
         if ($time==NULL){
             self::$serverTime = 600;
+            set_time_limit(self::$serverTime);
+        } else if ($time == 0) {
+            set_time_limit(0);
         } else {
             self::$serverTime = $time;
+            set_time_limit(self::$serverTime);
         }
-        set_time_limit(self::$serverTime);
+        
         define('h_value', $md5);
 
         if($string != NULL) {
@@ -175,6 +175,7 @@ Class Cracker
         return $executionTime;
     }
 
+    
     /**
      * tests encrypted string against a library of strings for a match by encrypting the test string.
      * Warning: This could take considerable resources and time. To greatly reduce
@@ -182,14 +183,24 @@ Class Cracker
      * @param string $hash
      * @return array
      */
-    public static function verifyByComparison(string $hash, int $minLen=NULL, int $maxLen=NULL) : array
+    public static function verifyByComparison(string $hash, int $timelimit, int $minLen=NULL, int $maxLen=NULL) : array
     {
+        if ($timelimit==NULL){
+            self::$serverTime = 600;
+            set_time_limit(self::$serverTime);
+        } else if ($timelimit == 0) {
+            set_time_limit(0);
+        } else {
+            self::$serverTime = $timelimit;
+            set_time_limit(self::$serverTime);
+        }
+
         self::init(array(
             'timezone'    => 'Europe/Amsterdam', // Time zone for the output file.
-            'wordlist'    => 'wordlist/dictionaries/dictionary_001..txt', // Path to the wordlist.
-            'outputfile'  => 'logs/output.txt' // Output file where the matching combo('s) will be stored in.
+            'wordlist'    => 'C:\wamp64\www\repositories\crypt\wordlist\dictionary\dictionary_001.txt', // Path to the wordlist.
+            'outputfile'  => '../logs/output.txt' // Output file where the matching combo('s) will be stored in.
         ));
-
+     
         self::startTimer();
 
         foreach(self::scanLibrary() as $l => $testString) {
@@ -218,12 +229,12 @@ Class Cracker
      */
     private static function scanLibrary() : array
     {
-        if (!file_exists(self::$settings['wordlist']) ) {
-            trigger_error('File not found.');
+        if (!file_exists(self::$settings['wordlist'])) {
+            trigger_error('File not found.'.self::$settings['wordlist']);
         } 
         else {
             $file = fopen(self::$settings['wordlist'], 'r');
-            $file = fread($file, filesize( self::$settings['wordlist'] ) );
+            $file = fread($file, filesize(self::$settings['wordlist']));
             $file = str_replace(" ", "", $file);
             $file = str_replace("\r", "", $file);
             return preg_split("(\n)", $file );

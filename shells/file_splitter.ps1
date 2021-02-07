@@ -2,9 +2,9 @@
 $sw = new-object System.Diagnostics.Stopwatch
 $sw.Start()
 $file = "wordy.txt"
-$filename = "C:\wamp64\www\repositories\crypt\stringbrute\wordlist\master\$file"
-$rootName = "C:\wamp64\www\repositories\crypt\stringbrute\wordlist\dictionaries\dictionary_"
-$ext = ".txt"
+$filename = "C:\wamp64\www\repositories\crypt\wordlist\master\$file"
+$rootName = "C:\wamp64\www\repositories\crypt\wordlist\dictionary\dictionary_"
+$ext = "txt"
 
 $linesperFile = 100000#100k
 $filecount = 1

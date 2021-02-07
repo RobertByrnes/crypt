@@ -5,7 +5,7 @@
  * @created 24/01/2021
  **/
 
-require "classes/Cracker.php";
+require "../../classes/Cracker.php";
 
 Cracker::init(array(
     'timezone'    => 'Europe/Amsterdam', // Time zone for the output file.

@@ -1,0 +1,58 @@
+[02/06/2021 04:37:45 pm] Server: Array
+(
+    [url] => http://www.llexeter.co.uk/
+    [content_type] => text/html; charset=UTF-8
+    [http_code] => 302-Found
+    [header_size] => 262
+    [request_size] => 57
+    [filetime] => -1
+    [ssl_verify_result] => 0-ok the operation was successful
+    [redirect_count] => 0
+    [total_time] => 11.281731
+    [namelookup_time] => 11.195784
+    [connect_time] => 11.233293
+    [pretransfer_time] => 11.233476
+    [size_upload] => 0
+    [size_download] => 0
+    [speed_download] => 0
+    [speed_upload] => 0
+    [download_content_length] => 0
+    [upload_content_length] => -1
+    [starttransfer_time] => 11.281608
+    [redirect_time] => 0
+    [redirect_url] => https://www.llexeter.co.uk/
+    [primary_ip] => 46.38.171.58
+    [certinfo] => Array
+        (
+        )
+
+    [primary_port] => 80
+    [local_ip] => 100.120.245.157
+    [local_port] => 1065
+    [http_version] => 2
+    [protocol] => 1
+    [ssl_verifyresult] => 0
+    [scheme] => HTTP
+    [appconnect_time_us] => 0
+    [connect_time_us] => 11233293
+    [namelookup_time_us] => 11195784
+    [pretransfer_time_us] => 11233476
+    [redirect_time_us] => 0
+    [starttransfer_time_us] => 11281608
+    [total_time_us] => 11281731
+    [header_out] => GET / HTTP/1.1
+Host: www.llexeter.co.uk
+Accept: */*
+
+
+    [ftp_entry_path] => 
+    [cookie_list] => Array
+        (
+        )
+
+    [OS_errno] => 0
+    [proxyauth_avail] => 0
+    [httpauth_avail] => 0
+    [num_connects] => 1
+)
+

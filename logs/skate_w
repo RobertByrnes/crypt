@@ -1,0 +1,58 @@
+[02/07/2021 06:44:46 pm] Server: Array
+(
+    [url] => http://www.skatewarehouse.co.uk/
+    [content_type] => text/html; charset=iso-8859-1
+    [http_code] => 301-Moved Permanently
+    [header_size] => 306
+    [request_size] => 63
+    [filetime] => -1
+    [ssl_verify_result] => 0-ok the operation was successful
+    [redirect_count] => 0
+    [total_time] => 0.215221
+    [namelookup_time] => 0.004548
+    [connect_time] => 0.080033
+    [pretransfer_time] => 0.080298
+    [size_upload] => 0
+    [size_download] => 331
+    [speed_download] => 1539
+    [speed_upload] => 0
+    [download_content_length] => 331
+    [upload_content_length] => -1
+    [starttransfer_time] => 0.215104
+    [redirect_time] => 0
+    [redirect_url] => https://www.skatewarehouse.co.uk/
+    [primary_ip] => 34.105.220.215
+    [certinfo] => Array
+        (
+        )
+
+    [primary_port] => 80
+    [local_ip] => 100.120.212.227
+    [local_port] => 1315
+    [http_version] => 2
+    [protocol] => 1
+    [ssl_verifyresult] => 0
+    [scheme] => HTTP
+    [appconnect_time_us] => 0
+    [connect_time_us] => 80033
+    [namelookup_time_us] => 4548
+    [pretransfer_time_us] => 80298
+    [redirect_time_us] => 0
+    [starttransfer_time_us] => 215104
+    [total_time_us] => 215221
+    [header_out] => GET / HTTP/1.1
+Host: www.skatewarehouse.co.uk
+Accept: */*
+
+
+    [ftp_entry_path] => 
+    [cookie_list] => Array
+        (
+        )
+
+    [OS_errno] => 0
+    [proxyauth_avail] => 0
+    [httpauth_avail] => 0
+    [num_connects] => 1
+)
+
