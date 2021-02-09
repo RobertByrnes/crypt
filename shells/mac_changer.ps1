@@ -1,4 +1,12 @@
-function random-mac {   
+# Self-elevate the script if required
+if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
+    if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
+     $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
+     Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
+     Exit
+    }
+   }
+function random_mac {   
     $mac = "02"
     while ($mac.length -lt 12) 
 	{ 
@@ -14,18 +22,19 @@ function random-mac {
 
 
 function disconnect-wifi { 
-    $CurrentSSID = (& netsh wlan show profiles | Select-String 'Current User Profile' | Foreach-Object {$_.ToString()}).replace("    Current User Profile : ","$null")
+    $CurrentSSID = (netsh wlan show interface | Select-String 'Profile' | Foreach-Object {$_.ToString()})
+    $CurrentSSID = $CurrentSSID.trim("Connection mode        : Profile     Profile                : ")
     Write-Host "Current WLAN SSID: $CurrentSSID"  -ForegroundColor Yellow
 
-    $WIFI = Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where { $_.IpEnabled -eq $true -and $_.DhcpEnabled -eq $true}
-    Write-Host "Releasing IP addresses:" ($WIFI.IPAddress | select -first 1)  -ForegroundColor Yellow 
+    $WIFI = Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where-Object { $_.IpEnabled -eq $true -and $_.DhcpEnabled -eq $true}
+    Write-Host "Releasing IP addresses:" ($WIFI.IPAddress | Select-Object -first 1)  -ForegroundColor Yellow 
     $WIFI.ReleaseDHCPLease() | out-Null 
 
-    # Make sure the Release have happened, else it give it 2 sec extra. 
-    $WIFI = Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where { $_.IpEnabled -eq $true -and $_.DhcpEnabled -eq $true} 
-    if ($WIFI.DefaultIPGateway -ne $Null) { 
+    # Make sure the release has happened, else give it 2 sec extra. 
+    $WIFI = Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where-Object { $_.IpEnabled -eq $true -and $_.DhcpEnabled -eq $true} 
+    if ($Null -ne $WIFI.DefaultIPGateway) { 
     Write-Output "Release of IP Address had not completed, waiting 1 Seconds" 
-    sleep -Seconds 2
+    Start-Sleep -Seconds 2
     }
 
     Write-Host "Disconnecting from WiFi" -ForegroundColor Yellow 
@@ -44,13 +53,13 @@ function new-wifimac ($wifiadapter, $ssid, $newmac){
 
     if ($oldmac -like $newmac) {
         Write-Host "Old MAC and New MAC are identical, generating a new MAC Address" -ForegroundColor Red
-        $newmac = random-mac
+        $newmac = random_mac
         Write-Output "New MAC Address to set: $newmac" 
         }
 
-    Get-NetAdapter -Name $wifiadapter | Set-NetAdapter -MACAddress $newmac -Confirm:$false
-    Get-NetAdapter -Name $wifiadapter | Disable-NetAdapter -Confirm:$false
-    Get-NetAdapter -Name $wifiadapter | Enable-NetAdapter -Confirm:$false
+    Set-NetAdapter -Name $wifiadapter -MacAddress $newmac -Confirm:$false 
+    Get-NetAdapter -Name $wifiadapter | Disable-NetAdapter -Confirm:$false -Verb runAs
+    Get-NetAdapter -Name $wifiadapter | Enable-NetAdapter -Confirm:$false -Verb runAs
     $currentmac = (Get-NetAdapter -Name $wifiadapter).MACAddress 
     Write-Output "NEW MAC Address: $currentmac" 
 
@@ -59,18 +68,18 @@ function new-wifimac ($wifiadapter, $ssid, $newmac){
 
     $NoIP = 0
     Do { 
-        $WIFI = Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where { $_.IpEnabled -eq $true -and $_.DhcpEnabled -eq $true}
+        $WIFI = Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where-Object { $_.IpEnabled -eq $true -and $_.DhcpEnabled -eq $true}
         
-        if ($WIFI.DefaultIPGateway -ne $null) { 
+        if ($null -ne $WIFI.DefaultIPGateway) { 
             $NoIP = 5
         }
         else {
-            sleep -Seconds 2 
+            Start-Sleep -Seconds 2 
             Write-Host "Waiting for IP Address" 
             $NoIP += 1
         }
     } While ($NoIP -lt 5) 
-    Write-Host "New IP addresses" ($WIFI.IPAddress | select -first 1)  -ForegroundColor Yellow 
+    Write-Host "New IP addresses" ($WIFI.IPAddress | Select-Object -first 1)  -ForegroundColor Yellow 
 }
 
 
@@ -92,16 +101,16 @@ $result
 $ssid = (& netsh wlan show interfaces | Select-String ' SSID ' | Foreach-Object {$_.ToString()}).replace("    SSID                   : ","$null")
 
 # Specify WLAN Adapter Name Manually 
-# $wifiadapter = 'vEthernet (External Wi-Fi)'
+# $wifiadapter = 'RTWlanE'
 # 
 # Or Try to identify the Wi-Fi Adapter 
-$wifiadapter = (Get-NetAdapter | where Status -EQ "Up" | where MediaType -EQ "802.3" | where MacAddress -EQ (Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where { $_.IpEnabled -eq $true -and $_.DhcpEnabled -eq $true} | select *).MACAddress.replace(":","-")).Name
-
+$wifiadapter = (Get-NetAdapter | where Status -EQ "Up" | where MediaType -EQ "802.11" |  Where { $_.IpEnabled -eq $true -and $_.DhcpEnabled -eq $true} | select *).MacAddress.replace(":","-").Name
+#  where MacAddress -EQ (Get-WmiObject -Class Win32_NetworkAdapterConfiguration |
 # Specify a MAC Address manually
 # $newmac = "02-F4-D7-B2-FE-D8"
 #
 # Or generate a new Random MAC Address
-$newmac = random-mac
+$newmac = random_mac
 
 disconnect-wifi
 new-wifimac -wifiadapter $wifiadapter -ssid $ssid -newmac $newmac 

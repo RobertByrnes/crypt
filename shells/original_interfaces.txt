@@ -1,0 +1,101 @@
+Microsoft Windows [Version 10.0.19042.746]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\Rob>ipconfig /all
+
+Windows IP Configuration
+
+   Host Name . . . . . . . . . . . . : DESKTOP-OUNUH88
+   Primary Dns Suffix  . . . . . . . :
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : Home
+
+Ethernet adapter Ethernet:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Realtek PCIe FE Family Controller
+   Physical Address. . . . . . . . . : 8C-DC-D4-8C-F0-C6
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+
+Ethernet adapter VirtualBox Host-Only Network:
+
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : VirtualBox Host-Only Ethernet Adapter
+   Physical Address. . . . . . . . . : 0A-00-27-00-00-12
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   Link-local IPv6 Address . . . . . : fe80::853a:3301:3a86:15c4%18(Preferred)
+   IPv4 Address. . . . . . . . . . . : 192.168.56.1(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+   DHCPv6 IAID . . . . . . . . . . . : 990511143
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-23-63-70-96-8C-DC-D4-8C-F0-C6
+   DNS Servers . . . . . . . . . . . : fec0:0:0:ffff::1%1
+                                       fec0:0:0:ffff::2%1
+                                       fec0:0:0:ffff::3%1
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+Wireless LAN adapter Local Area Connection* 1:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter
+   Physical Address. . . . . . . . . : 12-08-B1-CA-38-0F
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+
+Ethernet adapter SecureLine OpenVPN:
+
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : avast! SecureLine TAP Adapter v3
+   Physical Address. . . . . . . . . : 00-FF-C1-63-2C-FC
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+   Link-local IPv6 Address . . . . . : fe80::a4dc:6129:bd50:aa0a%19(Preferred)
+   Autoconfiguration IPv4 Address. . : 169.254.170.10(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.0.0
+   Default Gateway . . . . . . . . . :
+   DHCPv6 IAID . . . . . . . . . . . : 838926273
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-23-63-70-96-8C-DC-D4-8C-F0-C6
+   DNS Servers . . . . . . . . . . . : 100.120.184.1
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+Wireless LAN adapter WiFi:
+
+   Connection-specific DNS Suffix  . : Home
+   Description . . . . . . . . . . . : Realtek RTL8723BE 802.11 bgn Wi-Fi Adapter
+   Physical Address. . . . . . . . . : 10-08-B1-CA-38-0F
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+   IPv6 Address. . . . . . . . . . . : 2a02:c7f:2c6e:3a00:f540:e628:5045:8acf(Preferred)
+   IPv6 Address. . . . . . . . . . . : fd5f:14d0:22:0:f540:e628:5045:8acf(Preferred)
+   Temporary IPv6 Address. . . . . . : 2a02:c7f:2c6e:3a00:61a9:ec45:7eec:6d8f(Preferred)
+   Temporary IPv6 Address. . . . . . : fd5f:14d0:22:0:61a9:ec45:7eec:6d8f(Preferred)
+   Link-local IPv6 Address . . . . . : fe80::f540:e628:5045:8acf%12(Preferred)
+   IPv4 Address. . . . . . . . . . . : 192.168.0.22(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Lease Obtained. . . . . . . . . . : 09 February 2021 09:56:47
+   Lease Expires . . . . . . . . . . : 10 February 2021 09:56:50
+   Default Gateway . . . . . . . . . : fe80::3e89:94ff:fe2a:ec69%12
+                                       192.168.0.1
+   DHCP Server . . . . . . . . . . . : 192.168.0.1
+   DHCPv6 IAID . . . . . . . . . . . : 118491313
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-23-63-70-96-8C-DC-D4-8C-F0-C6
+   DNS Servers . . . . . . . . . . . : fd5f:14d0:22:0:3e89:94ff:fe2a:ec68
+                                       192.168.0.1
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+Ethernet adapter Bluetooth Network Connection:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Bluetooth Device (Personal Area Network)
+   Physical Address. . . . . . . . . : 10-08-B1-CA-38-10
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+
+C:\Users\Rob>
