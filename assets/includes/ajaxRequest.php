@@ -50,10 +50,22 @@ if (isset($_POST['targetTime'])) {
 // URL checkout submission
 if (isset($_POST['url'])) {
     $url = $_POST['url'];
-    $filename = $_POST['filename'];
-    $pretty = null;
-    $result = (new CheckURL($url, $pretty))->logInfo($filename);
-    echo 'Primary IP address: '.$result['primary_ip'];
+    if ($filename = $_POST['filename']) {
+        $pretty = null;
+        $result = (new CheckURL($url, $pretty))->logInfo($filename);
+        try {
+            if(isset($result['primary_ip'])) {
+                echo 'Primary IP address: '.$result['primary_ip'];
+            } else {
+                throw new Exception;
+            }
+        } catch (Exception $e) {
+            echo 'Primary IP address not found. If \'https\' try \'http\' or just \'www\'.';
+        }
+    } else {
+        echo "Filename not given. Enter filename and retry.";
+    }
+    
 }
 
 // Killswitch

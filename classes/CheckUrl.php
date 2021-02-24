@@ -136,21 +136,26 @@ Class CheckURL
         $intel = curl_init($url);
         curl_exec($intel);
         
-        if (!curl_errno($intel)) {
-        $info = curl_getinfo($intel);
-        $this->addDescriptive($info);
-        $this->getMore($url, $info);
+        try {
+            if (!curl_errno($intel)) {
+                $info = curl_getinfo($intel);
+                $this->addDescriptive($info);
+                $this->getMore($url, $info);
 
-        if($pretty != NULL) {
-            echo 'Took ', $info['total_time'], ' seconds to send a request to ', $info['url'], "\n";
-            if (preg_match('/wamp64|repositories/i', __DIR__) || !empty($_REQUEST['debug'])) {
-                echo '<pre>'.str_repeat('=', 14)."\ncURL RESPONSE:\n".str_repeat('=', 14)."\n  FILE: ".__FILE__."\n  LINE: "
-                .__LINE__."\n".str_repeat('=', 14)."\n".print_r($info, true).'</pre>';
+                if($pretty != NULL) {
+                    echo 'Took ', $info['total_time'], ' seconds to send a request to ', $info['url'], "\n";
+                    if (preg_match('/wamp64|repositories/i', __DIR__) || !empty($_REQUEST['debug'])) {
+                        echo '<pre>'.str_repeat('=', 14)."\ncURL RESPONSE:\n".str_repeat('=', 14)."\n  FILE: ".__FILE__."\n  LINE: "
+                        .__LINE__."\n".str_repeat('=', 14)."\n".print_r($info, true).'</pre>';
+                    }
                 }
+                $this->targetInfo = $info;
             }
-        }
 
-        $this->targetInfo = $info;
+        }
+        catch(Exception $e) {
+            echo "Error in url, try reformatting e.g. removing https://"; 
+        }
         curl_close($intel);
     }
 
@@ -216,16 +221,26 @@ Class CheckURL
 	* @param {string} data
 	*/
 	public function logInfo($filename)
-	{ 
-        $file = fopen('../../logs/'.$filename, "w");
-		$date = date('m/d/Y h:i:s a', time());
+	{
+        try { 
+            if($filename) {
+                $file = fopen('../../logs/'.$filename, "w");
+                $date = date('m/d/Y h:i:s a', time());
 
-		if(fwrite($file,"[{$date}] Server: " .  print_r($this->targetInfo, true) . "\n")) {
-            fclose($file);
-			return $this->targetInfo;
-		} else {
-            fclose($filename);
-			return false;
-		}
+                if(fwrite($file,"[{$date}] Server: " .  print_r($this->targetInfo, true) . "\n")) {
+                    fclose($file);
+                    return $this->targetInfo;
+                } else {
+                    fclose($filename);
+                    return false;
+                }
+            }
+            else {
+                throw new Exception;
+            }
+        }
+        catch (Exception $e) {
+            echo "Filename not given, please enter a filename and retry.";
+        }
 	}
 }
