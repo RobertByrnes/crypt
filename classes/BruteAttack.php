@@ -67,9 +67,11 @@ class BruteAttack
 
 
 	/**
+	 * Saves to log file as .txt with filename specified in init().
 	 * @param string data
+	 * @return bool
 	 */
-	private function logAttack($data)
+	private function logAttack($data) : bool
 	{
 		if (!file_exists(self::$settings['outputfile'])) {
 			trigger_error('Output file doesn\'t exist');
@@ -86,11 +88,13 @@ class BruteAttack
 	}
 
 
-	/*
-	* @param {string} url
-	* @param {boolean} mode
+	/**
+	* Send a cURL request to read response data and log.
+	* @param string url
+	* @param bool mode
+	* @return bool
 	*/
-	public function checkURL($url, $mode = true)
+	public function checkURL($url, $mode=true) : bool
 	{
 		if(!filter_var($url, FILTER_VALIDATE_URL)) {
 			if ($mode) {
@@ -118,11 +122,12 @@ class BruteAttack
 	}
 
 
-	/*
-	* @param {string} url
-	* @param {boolean} mode
+	/**
+	* @param string url
+	* @param bool mode
+	* @return bool
 	*/
-	public function checkPath($url, $mode = true)
+	public function checkPath($url, $mode=true) : bool 
 	{
 		$this->curl = curl_init($url);
 		curl_setopt($this->curl_handle, CURLOPT_RETURNTRANSFER, true);

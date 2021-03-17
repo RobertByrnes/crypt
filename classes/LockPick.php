@@ -60,7 +60,8 @@ Class LockPick
     * @param integer $serverTime
     * @return void
     */
-    public static function serverTime(int $time=NULL){
+    public static function serverTime(int $time=NULL) : void
+    {
         $startTime = microtime(true);
         if ($time==NULL){
             self::$serverTime = 600;
@@ -68,7 +69,6 @@ Class LockPick
             self::$serverTime = $time;
         }
         set_time_limit($serverTime);
-        return;
     }
 
 
@@ -80,7 +80,7 @@ Class LockPick
      * @param string $md5
      * @return void
      */
-    public static function handleMD5input(string $md5, string $string=NULL, int $time=NULL)
+    public static function handleMD5input(string $md5, string $string=NULL, int $time=NULL) : void
     {
         error_reporting(E_ALL & ~E_NOTICE);
         self::startTimer();
